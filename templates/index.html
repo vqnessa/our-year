@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>One Year</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Our Memories 2025</h1>
+
+    <div class="card">
+        <h2 id="month">{{ timeline[0].month }}</h2>
+
+        <div class="media">
+            {% if timeline[0].type == "image" %}
+                <img id="media" src="{{ url_for('static', filename='images/' + timeline[0].file) }}">
+            {% else %}
+                <video id="media" controls playsinline>
+                    <source src="{{ url_for('static', filename='video/' + timeline[0].file) }}" type="video/mp4">
+                </video>
+            {% endif %}
+        </div>
+
+        <p id="text">{{ timeline[0].text }}</p>
+
+        <div class="nav-buttons">
+            <button id="prev">&larr;</button>
+            <button id="next">&rarr;</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const timeline = {{ timeline | tojson }};
+let currentIndex = 0;
+
+const mediaContainer = document.querySelector(".media");
+const monthEl = document.getElementById("month");
+const textEl = document.getElementById("text");
+
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+
+function renderItem(index) {
+    const item = timeline[index];
+    mediaContainer.innerHTML = "";
+
+    if(item.type === "image") {
+        const img = document.createElement("img");
+        img.src = `/static/images/${item.file}`;
+        img.id = "media";
+        mediaContainer.appendChild(img);
+    } else {
+        const video = document.createElement("video");
+        video.src = `/static/video/${item.file}`;
+        video.controls = true;
+        video.playsInline = true;
+        video.id = "media";
+        mediaContainer.appendChild(video);
+    }
+
+    monthEl.textContent = item.month;
+    textEl.textContent = item.text;
+}
+
+// Initial render
+renderItem(currentIndex);
+
+// Navigation functions
+prevBtn.addEventListener("click", () => {
+    if(currentIndex > 0) currentIndex--;
+    renderItem(currentIndex);
+});
+
+nextBtn.addEventListener("click", () => {
+    if(currentIndex < timeline.length - 1) currentIndex++;
+    renderItem(currentIndex);
+});
+</script>
+
+</body>
+</html>

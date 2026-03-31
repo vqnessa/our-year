@@ -1,0 +1,23 @@
+[
+    {
+        "name": "First Day",
+        "lat": 37.55101340510879, 
+        "lng": 126.92161560061835,
+        "date": "Jan 24, 2025",
+        "image": "static/images/F3B9C2FE-9EDD-4FC1-8068-062904CF4BC8_1_102_o.jpeg"
+    },
+    {
+        "name": "The Start of Us Being Together Every Day",
+        "lat": 37.56922,
+        "lng": 126.97980,
+        "date": "Jan 26, 2025",
+        "image": "static/images/F2307201-9E96-4356-A1AC-D636DB7DB329_1_105_c.jpeg"
+    },
+    {
+        "name": "Busan",
+        "lat": 35.15077,
+        "lng": 129.11662,
+        "date": "Jan 27, 2025",
+        "image": "static/images/75DDA924-707B-47CE-A3A6-A8BAFE94F470_4_5005_c.jpeg"
+    }
+]
