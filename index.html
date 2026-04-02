@@ -11,11 +11,11 @@
     <h1>Our Memories 2025</h1>
 
     <div class="card">
-        <h2 id="month">Loading...</h2>
+        <h2 id="month" class="fade">Loading...</h2>
 
-        <div class="media"></div>
+        <div class="media fade"></div>
 
-        <p id="text"></p>
+        <p id="text" class="fade"></p>
 
         <div class="nav-buttons">
             <button id="prev">&larr;</button>
@@ -51,37 +51,59 @@ const nextBtn = document.getElementById("next");
 
 function renderItem(index) {
     const item = timeline[index];
-    mediaContainer.innerHTML = "";
 
-    if(item.type === "image") {
-        const img = document.createElement("img");
-        img.src = `static/images/${item.file}`;
-        img.id = "media";
-        mediaContainer.appendChild(img);
-    } else {
-        const video = document.createElement("video");
-        video.src = `static/video/${item.file}`;
-        video.controls = true;
-        video.playsInline = true;
-        video.id = "media";
-        mediaContainer.appendChild(video);
-    }
+    // Fade OUT
+    mediaContainer.classList.remove("show");
+    monthEl.classList.remove("show");
+    textEl.classList.remove("show");
 
-    monthEl.textContent = item.month;
-    textEl.textContent = item.text;
+    setTimeout(() => {
+        // Update content
+        mediaContainer.innerHTML = "";
+
+        if (item.type === "image") {
+            const img = document.createElement("img");
+            img.src = `static/images/${item.file}`;
+            img.id = "media";
+            mediaContainer.appendChild(img);
+        } else {
+            const video = document.createElement("video");
+            video.src = `static/video/${item.file}`;
+            video.controls = true;
+            video.playsInline = true;
+            video.id = "media";
+            mediaContainer.appendChild(video);
+        }
+
+        monthEl.textContent = item.month;
+        textEl.textContent = item.text;
+
+        // Fade IN
+        mediaContainer.classList.add("show");
+        monthEl.classList.add("show");
+        textEl.classList.add("show");
+
+    }, 200);
 }
 
 // Initial render
 renderItem(currentIndex);
 
+// Trigger initial fade-in
+setTimeout(() => {
+    mediaContainer.classList.add("show");
+    monthEl.classList.add("show");
+    textEl.classList.add("show");
+}, 50);
+
 // Navigation
 prevBtn.addEventListener("click", () => {
-    if(currentIndex > 0) currentIndex--;
+    if (currentIndex > 0) currentIndex--;
     renderItem(currentIndex);
 });
 
 nextBtn.addEventListener("click", () => {
-    if(currentIndex < timeline.length - 1) currentIndex++;
+    if (currentIndex < timeline.length - 1) currentIndex++;
     renderItem(currentIndex);
 });
 </script>

@@ -3,6 +3,12 @@ body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont;
     margin: 0;
     color: #333;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .container {
@@ -17,25 +23,56 @@ h1 {
     margin-bottom: 5px;
 }
 
-.subtitle {
-    opacity: 0.7;
-    margin-bottom: 30px;
-}
-
 .card {
     background: white;
     border-radius: 16px;
     padding: 20px;
     box-shadow: 0 15px 30px rgba(0,0,0,0.1);
     position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* 🔥 FIXED MEDIA */
+.media {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .media img,
 .media video {
-    width: 80%;    /* slightly smaller than the full card */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 12px;
-    margin: 15px auto;
-    display: block;
+}
+
+/* ✨ FADE */
+.fade {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.fade.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#month {
+    transition-delay: 0.05s;
+}
+
+#text {
+    transition-delay: 0.1s;
 }
 
 .card p {
@@ -53,12 +90,17 @@ h1 {
     background: #f0d6d6;
     border: none;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 500;
-    transition: background 0.3s;
+    transition: all 0.2s ease;
 }
 
 .nav-buttons button:hover {
     background: #e0bebe;
+    transform: scale(1.08);
+}
+
+.nav-buttons button:active {
+    transform: scale(0.95);
 }
